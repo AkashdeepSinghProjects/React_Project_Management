@@ -11,9 +11,10 @@ export default function App() {
     modalRef.current.open();
   }
   function handleValues(name, description) {
-    console.log("name :", name, " descritpton : ", description);
+    const date = new Date().toLocaleDateString();
+    console.log("name :", name, " descritpton : ", description, "date", date);
     setProjectData((previousDate) => [
-      { name: name, description: description },
+      { name: name, description: description, date: date },
       ...previousDate,
     ]);
   }
