@@ -2,11 +2,23 @@ import { forwardRef, useRef, useImperativeHandle } from "react";
 import { createPortal } from "react-dom";
 import Button from "./Button";
 import Input from "./Input";
-const modalForwardRef = forwardRef(function Modal({}, ref) {
+
+// eslint-disable-next-line no-empty-pattern
+const modalForwardRef = forwardRef(function Modal({ getValues }, ref) {
   let dialogRef = useRef();
   let name = useRef();
-  function handleName(e) {
-    console.log(e);
+  let desciptionValue = useRef();
+
+  function saveValues() {
+    getValues(name.current.value, desciptionValue.current.value);
+    name.current.value = "";
+    desciptionValue.current.value = "";
+    dialogRef.current.close();
+  }
+  function handelCancel() {
+    name.current.value = "";
+    desciptionValue.current.value = "";
+    dialogRef.current.close();
   }
 
   useImperativeHandle(ref, () => {
@@ -19,20 +31,23 @@ const modalForwardRef = forwardRef(function Modal({}, ref) {
 
   return createPortal(
     <dialog ref={dialogRef}>
-      <div className="min-h-fit w-[40vw]  flex flex-col p-5 rounded-lg text-white bg-gradient-to-b from-black  to-[#36454F]">
-        <Input name="Project Name" required ref={name} onChange={handleName} />
-        <Input name="introduction" textarea={true} />
-        <form method="dialog" className="flex justify-between mt-4">
-          <Button className="my-auto bg-rose-800 hover:bg-rose-900">
+      <div className="min-h-fit w-[40vw]  flex flex-col p-5  text-white bg-gradient-to-b from-black  to-[#36454F]">
+        <Input name="Project Name" required ref={name} />
+        <Input name="Discription" textarea={true} ref={desciptionValue} />
+        <div className="flex justify-between mt-5">
+          <Button
+            className="my-auto bg-rose-800 hover:bg-rose-900"
+            onClick={handelCancel}
+          >
             Cancel
           </Button>
           <Button
             className="my-auto bg-emerald-600 hover:bg-emerald-800 "
-            onClick={(e) => console.log(e)}
+            onClick={saveValues}
           >
             Save
           </Button>
-        </form>
+        </div>
       </div>
     </dialog>,
     document.getElementById("modal")
