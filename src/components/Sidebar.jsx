@@ -6,6 +6,8 @@ export default function Sidebar({
   topic = "topic Name",
   handleModal,
   projectNames,
+  selectedProject,
+  onSelectedProject,
 }) {
   return (
     <>
@@ -19,8 +21,21 @@ export default function Sidebar({
         </Button>
 
         {projectNames.map((name, index) => (
-          <div key={index} className=" bg-slate-500 rounded-md p-2">
-            <button className=" capitalize self-start">{name}</button>
+          <div
+            key={index}
+            className={
+              selectedProject === index
+                ? "bg-slate-500 rounded-md py-2 "
+                : undefined
+            }
+          >
+            <button
+              id={index}
+              className=" capitalize self-start ps-2"
+              onClick={(e) => onSelectedProject(parseInt(e.target.id))}
+            >
+              {name}
+            </button>
           </div>
         ))}
       </div>

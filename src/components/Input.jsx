@@ -11,7 +11,11 @@ const InputRef = forwardRef(function Input(
   }
   return (
     <>
-      <label className=" capitalize font-semibold text-2xl mt-3">{name}</label>
+      {name && (
+        <label className=" capitalize font-semibold text-2xl mt-3">
+          {name}
+        </label>
+      )}
       {isInvalid && (
         <small className="flex justify-end text-xs text-red-300">
           *{name} field must be filled
