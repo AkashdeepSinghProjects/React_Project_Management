@@ -1,25 +1,22 @@
-/* eslint-disable react/prop-types */
-import { useRef } from "react";
+import { useContext, useState } from "react";
 import Tasks from "./Tasks";
 import DeleteModal from "./DeleteModal";
+import { ProjectDataContext } from "../data/ProjectDataContext";
 
-export default function Main({
-  id,
-  selectedProject,
-  handleTask,
-  handleDeleteClick,
-  handleDeleteTask,
-}) {
-  let modalDeleteRef = useRef();
+export default function Main({}) {
+  const {selectedProject:id,data,addNewTask,deleteTask,deleteProject} = useContext(ProjectDataContext);
+  const [isModelOpen,setIsModalOpen]= useState(false);
+  const selectedProject = data[id];
 
   // open is a custom method added using useImperativeHandle() method of react in deleteModal component
   function handleDeleteModal() {
-    modalDeleteRef.current.open();
+   setIsModalOpen(true);
   }
   // handle delete if user replied true to deleteModal
   function handleDeleteModalReply(reply) {
+    setIsModalOpen(false);
     if (reply) {
-      handleDeleteClick(id);
+      deleteProject(id);
     }
   }
 
@@ -32,8 +29,8 @@ export default function Main({
               {selectedProject.name}
             </h1>
             <DeleteModal
-              ref={modalDeleteRef}
               response={(reply) => handleDeleteModalReply(reply)}
+              open={isModelOpen}
             />
             <button className=" text-gray-600" onClick={handleDeleteModal}>
               Delete
@@ -49,8 +46,8 @@ export default function Main({
           <Tasks
             key={`project-${id}`}
             tasksList={selectedProject.tasks}
-            getTasks={(task) => handleTask(id, task)}
-            handleDeleteTask={(taskId) => handleDeleteTask(id, taskId)}
+            getTasks={(task) => addNewTask(id, task)}
+            handleDeleteTask={(taskId) => deleteTask(id, taskId)}
           />
         </>
       ) : (

@@ -1,18 +1,16 @@
-import { useRef, forwardRef, useImperativeHandle } from "react";
+import { useRef ,useEffect } from "react";
 import { createPortal } from "react-dom";
 import Button from "./Button";
 
-const deleteRef = forwardRef(function DeleteModal({ response }, ref) {
+export default  function DeleteModal({ response,open }) {
+
   const dialogRef = useRef();
 
-  useImperativeHandle(ref, () => {
-    return {
-      open() {
-        // backdrop will only work if showModal method is used
-        dialogRef.current.showModal();
-      },
-    };
-  });
+  useEffect(()=>{
+    if(open){
+      dialogRef.current.showModal();
+    }
+  },[open])
 
   function handleResponse(reply) {
     response(reply);
@@ -35,6 +33,6 @@ const deleteRef = forwardRef(function DeleteModal({ response }, ref) {
     </dialog>,
     document.getElementById("deleteModal")
   );
-});
+}
 
-export default deleteRef;
+

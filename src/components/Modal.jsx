@@ -1,13 +1,24 @@
-import { forwardRef, useRef, useImperativeHandle, useState } from "react";
+import { useRef, useEffect, useState,useContext } from "react";
 import { createPortal } from "react-dom";
+
 import Button from "./Button";
 import Input from "./Input";
+import {ProjectDataContext} from "../data/ProjectDataContext"
 
-const modalForwardRef = forwardRef(function Modal({ getValues }, ref) {
+export default  function Modal({ open ,handleModalClose }) {
   let dialogRef = useRef();
   let name = useRef();
   let desciptionValue = useRef();
   const [isValid, setIsValid] = useState([false, false]);
+
+  const {addNewProject} = useContext(ProjectDataContext);
+
+  useEffect(()=>{
+    if(open){
+      dialogRef.current.showModal();
+    }
+  },[open])
+  
 
   function saveValues() {
     if (name.current.value === "") {
@@ -16,10 +27,12 @@ const modalForwardRef = forwardRef(function Modal({ getValues }, ref) {
       setIsValid([false, true]);
     } else {
       setIsValid([false, false]);
-      getValues(name.current.value, desciptionValue.current.value);
+      addNewProject(name.current.value, desciptionValue.current.value);
       name.current.value = "";
       desciptionValue.current.value = "";
       dialogRef.current.close();
+      handleModalClose();
+     
     }
   }
   function handelCancel() {
@@ -27,16 +40,10 @@ const modalForwardRef = forwardRef(function Modal({ getValues }, ref) {
     name.current.value = "";
     desciptionValue.current.value = "";
     dialogRef.current.close();
-  }
+    handleModalClose();
+    
 
-  useImperativeHandle(ref, () => {
-    return {
-      open() {
-        // backdrop will only work if showModal method is used
-        dialogRef.current.showModal();
-      },
-    };
-  });
+  }
 
   return createPortal(
     <dialog ref={dialogRef}>
@@ -65,6 +72,6 @@ const modalForwardRef = forwardRef(function Modal({ getValues }, ref) {
     </dialog>,
     document.getElementById("modal")
   );
-});
+}
 
-export default modalForwardRef;
+

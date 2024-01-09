@@ -1,14 +1,16 @@
-/* eslint-disable react/prop-types */
-import Button from "./Button";
+import { useContext } from "react";
 
-// eslint-disable-next-line react/prop-types
+import Button from "./Button";
+import {ProjectDataContext} from "../data/ProjectDataContext"
+
 export default function Sidebar({
   topic = "topic Name",
   handleModal,
-  projectNames,
-  selectedProject,
-  onSelectedProject,
 }) {
+
+  const {data, selectedProject, setSelectedProject} = useContext(ProjectDataContext);
+  const projectNames = data.map((object) => object.name);
+
   return (
     <>
       <div className="bg-gradient-to-b sm:pb-5 from-black  to-[#36454F] mt-0 sm:mt-[10vh] rounded-tr-2xl sm:w-[35vw] sm:min-h-[90vh] flex flex-col px-2 pb-3  sm:px-8 gap-3 text-slate-50 h-fit ">
@@ -29,7 +31,7 @@ export default function Sidebar({
             <button
               id={index}
               className=" capitalize self-start ps-2"
-              onClick={(e) => onSelectedProject(parseInt(e.target.id))}
+              onClick={(e) => setSelectedProject(parseInt(e.target.id))}
             >
               {name}
             </button>
