@@ -40,7 +40,7 @@ const modalForwardRef = forwardRef(function Modal({ getValues }, ref) {
 
   return createPortal(
     <dialog ref={dialogRef}>
-      <div className="min-h-fit w-[40vw]  flex flex-col p-5  text-white bg-gradient-to-b from-black  to-[#36454F]">
+      <div className="min-h-fit sm:w-[40vw] w-96  flex flex-col p-5  text-white bg-gradient-to-b from-black  to-[#36454F]">
         <Input
           name="Project Name"
           textarea={false}

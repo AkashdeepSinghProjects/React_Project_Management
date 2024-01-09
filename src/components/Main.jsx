@@ -24,7 +24,7 @@ export default function Main({
   }
 
   return (
-    <main className="mt-[20vh] ps-12 pe-32 w-screen h-fit min-h-[80vh]">
+    <main className="sm:mt-[20vh] sm:ps-12 px-2 mt-2 pb-10 ps-2 sm:pe-32 w-screen min-h-fit sm:min-h-[80vh]">
       {selectedProject ? (
         <>
           <div className=" flex justify-between">

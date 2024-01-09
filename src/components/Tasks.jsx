@@ -20,7 +20,8 @@ export default function Tasks({ tasksList, getTasks, handleDeleteTask }) {
       <div className="flex gap-2 py-4">
         <input
           ref={inputTaskRef}
-          className=" w-60 p-1 rounded-md bg-gray-200"
+          className=" sm:w-60 w-4/5 p-1 rounded-md bg-gray-200"
+          placeholder="Enter task here"
           onKeyDown={(e) => e.key && e.key === "Enter" && handleClick()}
         />
         <button onClick={handleClick}>Add Task</button>
@@ -30,7 +31,7 @@ export default function Tasks({ tasksList, getTasks, handleDeleteTask }) {
           Add new tasks to view
         </p>
       ) : (
-        <ul key="taskList-1" className=" w-2/5 min-w-fit list-inside list-disc">
+        <ul key="taskList-1" className=" sm:w-2/5 mt-2 sm:mt-0 min-w-fit list-inside list-disc">
           {tasksList.map((task, index) => (
             <Fragment key={index}>
               <li id={index} className=" text-lg flex justify-between">

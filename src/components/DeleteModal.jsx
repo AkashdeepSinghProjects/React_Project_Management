@@ -21,7 +21,7 @@ const deleteRef = forwardRef(function DeleteModal({ response }, ref) {
 
   return createPortal(
     <dialog ref={dialogRef}>
-      <div className=" backdrop-blur-md min-h-fit w-[30vw]  flex flex-col p-5  text-white bg-gradient-to-b from-black  to-[#36454F]">
+      <div className=" backdrop-blur-md min-h-fit sm:w-[30vw] w-96  flex flex-col p-5  text-white bg-gradient-to-b from-black  to-[#36454F]">
         <p>Are you sure you want to delete the project?</p>
         <div className="flex justify-between mt-5">
           <Button red={true} onClick={() => handleResponse(true)}>

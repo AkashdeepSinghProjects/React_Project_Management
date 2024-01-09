@@ -81,7 +81,7 @@ export default function App() {
   }
 
   return (
-    <div className="h-screen flex ">
+    <div className="sm:h-screen  sm:flex">
       <Modal ref={modalRef} getValues={handleNewValues} />
       <Sidebar
         topic="your projects"
